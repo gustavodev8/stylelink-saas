@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - StyleLink Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>StyleLink</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item active">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="products.html" class="nav-item">
+          <span>👕</span> Produtos
+        </a>
+        <a href="store.html" class="nav-item">
+          <span>🏪</span> Minha Loja
+        </a>
+        <a href="social.html" class="nav-item">
+          <span>📱</span> Redes Sociais
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span>⚙️</span> Configurações
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn btn-secondary">Sair</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-header">
+        <h1>Dashboard</h1>
+        <a href="#" id="viewPublicPage" class="btn btn-outline" target="_blank">
+          Ver Página Pública
+        </a>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total de Produtos</h3>
+          <p class="stat-value" id="totalProducts">-</p>
+        </div>
+        <div class="stat-card">
+          <h3>Produtos Ativos</h3>
+          <p class="stat-value" id="activeProducts">-</p>
+        </div>
+        <div class="stat-card">
+          <h3>Redes Sociais</h3>
+          <p class="stat-value" id="socialLinks">-</p>
+        </div>
+        <div class="stat-card">
+          <h3>Status</h3>
+          <p class="stat-value" id="subscriptionStatus">-</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h2>Ações Rápidas</h2>
+        <div class="actions-grid">
+          <a href="products.html?action=new" class="action-card">
+            <span class="action-icon">➕</span>
+            <h3>Adicionar Produto</h3>
+            <p>Cadastre um novo produto</p>
+          </a>
+          <a href="store.html" class="action-card">
+            <span class="action-icon">✏️</span>
+            <h3>Editar Loja</h3>
+            <p>Personalize sua página</p>
+          </a>
+          <a href="social.html" class="action-card">
+            <span class="action-icon">🔗</span>
+            <h3>Adicionar Rede Social</h3>
+            <p>Conecte suas redes</p>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

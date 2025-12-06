@@ -46,62 +46,72 @@ stylelink-saas/
 │   ├── src/
 │   │   ├── config/       # Configurações (DB, Cloudinary, etc)
 │   │   ├── controllers/  # Lógica de negócio
-│   │   ├── middleware/   # Middlewares (auth, upload, etc)
+│   │   │   ├── authController.js
+│   │   │   ├── productController.js
+│   │   │   ├── storeController.js
+│   │   │   ├── socialController.js
+│   │   │   └── pageController.js
+│   │   ├── middleware/   # Middlewares (auth, upload, validação)
+│   │   │   ├── auth.js
+│   │   │   ├── upload.js
+│   │   │   └── validator.js
 │   │   ├── models/       # Modelos do banco
+│   │   │   ├── User.js
+│   │   │   ├── Store.js
+│   │   │   ├── Product.js
+│   │   │   └── SocialLink.js
 │   │   ├── routes/       # Rotas da API
+│   │   │   ├── auth.js
+│   │   │   ├── products.js
+│   │   │   ├── store.js
+│   │   │   ├── social.js
+│   │   │   ├── page.js
+│   │   │   └── upload.js
 │   │   ├── services/     # Serviços externos
-│   │   ├── utils/        # Utilitários
-│   │   └── database/     # Migrations e Seeds
+│   │   │   ├── cloudinaryService.js
+│   │   │   ├── emailService.js
+│   │   │   └── paymentService.js
+│   │   ├── database/     # Migrations
+│   │   │   └── migrations/
+│   │   │       └── 001_schema_completo.sql
+│   │   ├── app.js        # Configuração Express
+│   │   └── server.js     # Servidor
+│   ├── .env.example      # Exemplo de variáveis de ambiente
 │   └── package.json
 │
 ├── frontend/
 │   ├── admin/            # Painel Administrativo
-│   └── public/           # Páginas Públicas
+│   │   ├── css/
+│   │   ├── js/
+│   │   ├── pages/
+│   │   └── index.html
+│   └── public/           # Página Pública
+│       ├── css/
+│       ├── js/
+│       └── index.html
 │
-└── docs/                 # Documentação
+├── README.md
+└── GUIA_INICIO.md        # Guia de início rápido
 ```
 
 ---
 
 ## 🚀 Como Começar
 
-### 1. Clone o repositório
-```bash
-git clone https://github.com/seu-usuario/stylelink-saas.git
-cd stylelink-saas
-```
+**Veja o [GUIA_INICIO.md](GUIA_INICIO.md) para instruções detalhadas passo a passo!**
 
-### 2. Instale as dependências
-```bash
-cd backend
-npm install
-```
+### Resumo Rápido
 
-### 3. Configure as variáveis de ambiente
-```bash
-cp .env.example .env
-# Edite o arquivo .env com suas credenciais
-```
+1. Clone o repositório
+2. Configure o PostgreSQL e execute o schema
+3. Configure o arquivo `.env` (copie de `.env.example`)
+4. Instale dependências: `npm install`
+5. Inicie o servidor: `npm run dev`
+6. Acesse: `http://localhost:3000`
 
-### 4. Configure o banco de dados
-```bash
-# Execute o schema SQL
-psql -U seu_usuario -d stylelink -f src/database/migrations/001_schema_completo.sql
-
-# Ou use o script de setup
-npm run migrate
-```
-
-### 5. Inicie o servidor
-```bash
-# Desenvolvimento
-npm run dev
-
-# Produção
-npm start
-```
-
-O servidor estará rodando em: `http://localhost:3000`
+Para frontend:
+- Admin: `http://localhost:8080`
+- Public: `http://localhost:8081`
 
 ---
 
@@ -149,25 +159,39 @@ MERCADOPAGO_ACCESS_TOKEN=...
 
 ---
 
-## 📡 API Endpoints (a serem implementados)
+## 📡 API Endpoints
 
 ### Autenticação
-- `POST /api/auth/register` - Cadastrar nova loja
-- `POST /api/auth/login` - Login
-- `POST /api/auth/forgot-password` - Recuperar senha
+- ✅ `POST /api/auth/register` - Cadastrar nova loja
+- ✅ `POST /api/auth/login` - Login
+- ✅ `GET /api/auth/profile` - Obter perfil do usuário
+- ✅ `GET /api/auth/check-slug/:slug` - Verificar disponibilidade de slug
 
 ### Produtos
-- `GET /api/products` - Listar produtos
-- `POST /api/products` - Criar produto
-- `PUT /api/products/:id` - Atualizar produto
-- `DELETE /api/products/:id` - Deletar produto
+- ✅ `GET /api/products` - Listar produtos (com filtros)
+- ✅ `GET /api/products/:id` - Buscar produto por ID
+- ✅ `POST /api/products` - Criar produto
+- ✅ `PUT /api/products/:id` - Atualizar produto
+- ✅ `DELETE /api/products/:id` - Deletar produto
 
 ### Loja
-- `GET /api/store` - Obter informações da loja
-- `PUT /api/store` - Atualizar informações da loja
+- ✅ `GET /api/store` - Obter informações da loja
+- ✅ `PUT /api/store` - Atualizar informações da loja
+
+### Redes Sociais
+- ✅ `GET /api/social` - Listar links sociais
+- ✅ `POST /api/social` - Criar/atualizar link social
+- ✅ `DELETE /api/social/:platform` - Deletar link social
 
 ### Página Pública
-- `GET /api/page/:slug` - Obter página pública da loja
+- ✅ `GET /api/page/:slug` - Obter página pública da loja
+- ✅ `POST /api/page/track/product/:productId` - Registrar visualização
+- ✅ `POST /api/page/track/whatsapp/:productId` - Registrar clique WhatsApp
+- ✅ `POST /api/page/track/social/:slug/:platform` - Registrar clique social
+
+### Upload
+- ✅ `POST /api/upload/single` - Upload de uma imagem
+- ✅ `POST /api/upload/multiple` - Upload de múltiplas imagens
 
 ---
 
@@ -183,15 +207,32 @@ MERCADOPAGO_ACCESS_TOKEN=...
 
 ## 🎯 Roadmap
 
-### Fase 1 - MVP (12 dias) ✅
+### Fase 1 - MVP ✅
 - [x] Estrutura do projeto
-- [ ] Backend API completo
-- [ ] Painel administrativo
-- [ ] Página pública
-- [ ] Sistema de pagamento
+- [x] Backend API completo
+  - [x] Autenticação (JWT)
+  - [x] CRUD de produtos
+  - [x] Gerenciamento de loja
+  - [x] Links sociais
+  - [x] Página pública
+  - [x] Upload de imagens
+- [x] Models e banco de dados
+- [x] Middlewares (auth, upload, validação)
+- [x] Services (Cloudinary, Email, Pagamento)
+- [x] Estrutura básica do frontend
+  - [x] Admin panel (login, dashboard)
+  - [x] Página pública (template 1)
+
+### Fase 2 - Implementações Pendentes
+- [ ] Completar todas as páginas do admin
+  - [ ] Gerenciamento de produtos
+  - [ ] Edição da loja
+  - [ ] Configurações
+- [ ] Sistema de pagamento (Mercado Pago)
+- [ ] Envio de emails
 - [ ] Deploy inicial
 
-### Fase 2 - Melhorias
+### Fase 3 - Melhorias Futuras
 - [ ] Analytics avançado
 - [ ] Múltiplos templates
 - [ ] Domínio personalizado
