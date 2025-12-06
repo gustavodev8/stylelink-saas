@@ -3,7 +3,8 @@
     "allow": [
       "Bash(tree:*)",
       "Bash(npm install:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nEstrutura completa do SaaS StyleLink - Link in Bio\n\nBackend API Completo:\n- ✅ Autenticação com JWT (register, login, profile)\n- ✅ CRUD completo de produtos\n- ✅ Gerenciamento de loja (informações, customização)\n- ✅ Links de redes sociais\n- ✅ Página pública com tracking de métricas\n- ✅ Upload de imagens (Cloudinary)\n\nModels:\n- User (lojas/usuários)\n- Store (informações da loja)\n- Product (produtos com imagens, cores, tamanhos)\n- SocialLink (redes sociais)\n\nMiddlewares:\n- Auth (JWT authentication)\n- Upload (Multer + Cloudinary)\n- Validator (express-validator)\n\nServices:\n- Cloudinary (upload de imagens)\n- Email (Nodemailer)\n- Payment (Mercado Pago)\n\nFrontend:\n- Admin panel (login, dashboard básico)\n- Página pública (template responsivo)\n- API client (JavaScript)\n\nDocumentação:\n- README.md atualizado\n- GUIA_INICIO.md (setup passo a passo)\n- ARQUITETURA.md (estrutura detalhada)\n- .env.example (template de configuração)\n\n🚀 Generated with Claude Code\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []

@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - StyleLink Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/dashboard.css">
 </head>
@@ -48,42 +51,63 @@
       <!-- Stats Cards -->
       <div class="stats-grid">
         <div class="stat-card">
+          <div class="stat-icon">👕</div>
           <h3>Total de Produtos</h3>
           <p class="stat-value" id="totalProducts">-</p>
+          <span class="stat-label">cadastrados na loja</span>
         </div>
         <div class="stat-card">
+          <div class="stat-icon">✅</div>
           <h3>Produtos Ativos</h3>
           <p class="stat-value" id="activeProducts">-</p>
+          <span class="stat-label">visíveis no catálogo</span>
         </div>
         <div class="stat-card">
+          <div class="stat-icon">📱</div>
           <h3>Redes Sociais</h3>
           <p class="stat-value" id="socialLinks">-</p>
+          <span class="stat-label">redes conectadas</span>
         </div>
         <div class="stat-card">
-          <h3>Status</h3>
+          <div class="stat-icon">🎯</div>
+          <h3>Status da Conta</h3>
           <p class="stat-value" id="subscriptionStatus">-</p>
+          <span class="stat-label">plano atual</span>
         </div>
       </div>
 
       <!-- Quick Actions -->
       <div class="quick-actions">
-        <h2>Ações Rápidas</h2>
+        <h2>⚡ Ações Rápidas</h2>
         <div class="actions-grid">
           <a href="products.html?action=new" class="action-card">
             <span class="action-icon">➕</span>
             <h3>Adicionar Produto</h3>
-            <p>Cadastre um novo produto</p>
+            <p>Cadastre um novo produto na sua loja</p>
           </a>
           <a href="store.html" class="action-card">
             <span class="action-icon">✏️</span>
             <h3>Editar Loja</h3>
-            <p>Personalize sua página</p>
+            <p>Personalize cores, logo e informações</p>
           </a>
           <a href="social.html" class="action-card">
             <span class="action-icon">🔗</span>
-            <h3>Adicionar Rede Social</h3>
-            <p>Conecte suas redes</p>
+            <h3>Redes Sociais</h3>
+            <p>Conecte Instagram, Facebook e mais</p>
           </a>
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="info-section">
+        <div class="info-card">
+          <h3>💡 Dicas para começar</h3>
+          <ul>
+            <li>✅ Adicione pelo menos 5 produtos para ter um catálogo inicial</li>
+            <li>✅ Configure suas redes sociais para mais visibilidade</li>
+            <li>✅ Personalize as cores da sua loja para combinar com sua marca</li>
+            <li>✅ Compartilhe o link da sua loja nas redes sociais</li>
+          </ul>
         </div>
       </div>
     </main>
