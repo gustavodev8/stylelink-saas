@@ -71,23 +71,21 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Importar rotas (serão criadas depois)
-// const authRoutes = require('./routes/auth');
-// const productsRoutes = require('./routes/products');
-// const storeRoutes = require('./routes/store');
-// const socialRoutes = require('./routes/social');
-// const highlightsRoutes = require('./routes/highlights');
-// const pageRoutes = require('./routes/page');
-// const subscriptionRoutes = require('./routes/subscription');
+// Importar rotas
+const authRoutes = require('./routes/auth');
+const productsRoutes = require('./routes/products');
+const storeRoutes = require('./routes/store');
+const socialRoutes = require('./routes/social');
+const pageRoutes = require('./routes/page');
+const uploadRoutes = require('./routes/upload');
 
 // Usar rotas
-// app.use('/api/auth', authRoutes);
-// app.use('/api/products', productsRoutes);
-// app.use('/api/store', storeRoutes);
-// app.use('/api/social', socialRoutes);
-// app.use('/api/highlights', highlightsRoutes);
-// app.use('/api/page', pageRoutes);
-// app.use('/api/subscription', subscriptionRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/store', storeRoutes);
+app.use('/api/social', socialRoutes);
+app.use('/api/page', pageRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // ===================================
 // ERROR HANDLERS
