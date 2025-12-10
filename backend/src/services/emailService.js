@@ -96,8 +96,61 @@ const sendRenewalReminder = async (email, storeName, daysRemaining) => {
   }
 };
 
+// Email com código de verificação
+const sendVerificationCode = async (email, code, storeName) => {
+  const mailOptions = {
+    from: `"StyleLink" <${process.env.SMTP_USER}>`,
+    to: email,
+    subject: 'Código de Verificação - StyleLink',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #6366f1; margin: 0;">StyleLink</h1>
+          <p style="color: #6b7280; margin-top: 5px;">Verificação de Email</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 30px; border-radius: 12px; text-align: center; margin-bottom: 20px;">
+          <p style="color: white; font-size: 16px; margin: 0 0 15px 0;">Olá, ${storeName}!</p>
+          <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0 0 20px 0;">Use o código abaixo para verificar seu email:</p>
+
+          <div style="background: white; padding: 20px; border-radius: 8px; margin: 0 auto; display: inline-block;">
+            <h2 style="color: #6366f1; font-size: 36px; margin: 0; letter-spacing: 8px; font-family: monospace;">${code}</h2>
+          </div>
+
+          <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 15px;">Código válido por 15 minutos</p>
+        </div>
+
+        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <p style="margin: 0; font-size: 14px; color: #374151;">
+            <strong>Por que estou recebendo isso?</strong><br>
+            Você (ou alguém) tentou criar uma conta no StyleLink com este email.
+            Se não foi você, ignore este email.
+          </p>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+
+        <p style="color: #6b7280; font-size: 12px; text-align: center; margin: 0;">
+          Equipe StyleLink<br>
+          Este é um email automático, não responda.
+        </p>
+      </div>
+    `
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('✅ Código de verificação enviado para:', email);
+    return true;
+  } catch (error) {
+    console.error('❌ Erro ao enviar código de verificação:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   sendWelcomeEmail,
   sendPaymentConfirmation,
-  sendRenewalReminder
+  sendRenewalReminder,
+  sendVerificationCode
 };

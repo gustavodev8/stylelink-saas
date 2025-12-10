@@ -48,6 +48,16 @@ if (loginForm) {
       }
     } catch (error) {
       console.error('Erro no login:', error);
+
+      // Se precisar verificar email, redirecionar
+      if (error.needsVerification && error.email) {
+        showAlert('Você precisa verificar seu email primeiro!', 'error');
+        setTimeout(() => {
+          window.location.href = `verify.html?email=${encodeURIComponent(error.email)}`;
+        }, 2000);
+        return;
+      }
+
       showAlert(error.message || 'Email ou senha incorretos', 'error');
 
       // Reabilitar botão

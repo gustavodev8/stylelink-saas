@@ -9,9 +9,13 @@ requireAuth();
 const totalProductsEl = document.getElementById('totalProducts');
 const activeProductsEl = document.getElementById('activeProducts');
 const socialLinksEl = document.getElementById('socialLinks');
-const subscriptionStatusEl = document.getElementById('subscriptionStatus');
+const pageViewsEl = document.getElementById('pageViews');
 const viewPublicPageBtn = document.getElementById('viewPublicPage');
 const logoutBtn = document.getElementById('logoutBtn');
+const storeLinkSlug = document.getElementById('storeLinkSlug');
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const visitStoreBtn = document.getElementById('visitStoreBtn');
+const productCountBadge = document.getElementById('productCount');
 
 // Estado
 let userData = null;
@@ -36,8 +40,10 @@ async function initDashboard() {
     // Atualizar estatísticas
     updateStats(products.data, socialLinks.data);
 
-    // Configurar botão de visualizar página
-    setupPublicPageLink(userData.store_slug || userData.storeSlug);
+    // Configurar link da loja
+    const storeSlug = userData.store_slug || userData.storeSlug;
+    setupStoreLinkBanner(storeSlug);
+    setupPublicPageLink(storeSlug);
 
     // Adicionar animação de fade-in
     setTimeout(() => {
@@ -54,96 +60,94 @@ async function initDashboard() {
 
 // Mostrar loading nas estatísticas
 function showLoadingStats() {
-  totalProductsEl.innerHTML = '<div class="loading"></div>';
-  activeProductsEl.innerHTML = '<div class="loading"></div>';
-  socialLinksEl.innerHTML = '<div class="loading"></div>';
-  subscriptionStatusEl.innerHTML = '<div class="loading"></div>';
+  if (totalProductsEl) totalProductsEl.textContent = '-';
+  if (activeProductsEl) activeProductsEl.textContent = '-';
+  if (socialLinksEl) socialLinksEl.textContent = '-';
+  if (pageViewsEl) pageViewsEl.textContent = '-';
 }
 
 // Atualizar estatísticas
 function updateStats(products, socialLinks) {
   // Total de produtos
-  totalProductsEl.textContent = products.length;
+  const totalProducts = products.length;
+  totalProductsEl.textContent = totalProducts;
+
+  // Atualizar badge da sidebar
+  if (productCountBadge) {
+    productCountBadge.textContent = totalProducts;
+  }
 
   // Produtos ativos
-  const activeProducts = products.filter(p => p.is_available || p.isAvailable);
+  const activeProducts = products.filter(p => p.is_active !== false && p.isActive !== false);
   activeProductsEl.textContent = activeProducts.length;
 
   // Redes sociais ativas
   const activeSocial = socialLinks.filter(s => s.is_active || s.isActive);
   socialLinksEl.textContent = activeSocial.length;
 
-  // Status da assinatura
-  const status = userData.subscription_status || userData.subscriptionStatus;
-  updateSubscriptionStatus(status);
-}
-
-// Atualizar status da assinatura
-function updateSubscriptionStatus(status) {
-  const statusMap = {
-    'trial': { text: '📅 Trial', color: '#f59e0b' },
-    'active': { text: '✅ Ativo', color: '#10b981' },
-    'inactive': { text: '⏸️ Inativo', color: '#6b7280' },
-    'cancelled': { text: '❌ Cancelado', color: '#ef4444' }
-  };
-
-  const statusInfo = statusMap[status] || statusMap['inactive'];
-  subscriptionStatusEl.textContent = statusInfo.text;
-  subscriptionStatusEl.style.color = statusInfo.color;
-
-  // Verificar se está em trial e quanto tempo resta
-  if (status === 'trial') {
-    checkTrialExpiration();
+  // Visualizações totais
+  const totalViews = products.reduce((sum, p) => sum + (p.views || 0), 0);
+  if (pageViewsEl) {
+    pageViewsEl.textContent = totalViews >= 1000
+      ? `${(totalViews/1000).toFixed(1)}k`
+      : totalViews;
   }
 }
 
-// Verificar expiração do trial
-function checkTrialExpiration() {
-  const trialEndDate = new Date(userData.trial_end_date || userData.trialEndDate);
-  const now = new Date();
-  const daysLeft = Math.ceil((trialEndDate - now) / (1000 * 60 * 60 * 24));
 
-  if (daysLeft <= 3 && daysLeft > 0) {
-    showTrialWarning(daysLeft);
-  } else if (daysLeft <= 0) {
-    showTrialExpired();
+
+// Configurar banner do link da loja
+function setupStoreLinkBanner(slug) {
+  if (slug && storeLinkSlug) {
+    storeLinkSlug.textContent = slug;
+
+    const storeUrl = `http://localhost:8081?slug=${slug}`;
+
+    // Copiar link
+    if (copyLinkBtn) {
+      copyLinkBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(storeUrl);
+
+          // Feedback visual
+          const originalHTML = copyLinkBtn.innerHTML;
+          copyLinkBtn.classList.add('copied');
+          copyLinkBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Copiado!
+          `;
+
+          setTimeout(() => {
+            copyLinkBtn.classList.remove('copied');
+            copyLinkBtn.innerHTML = originalHTML;
+          }, 2000);
+        } catch (error) {
+          console.error('Erro ao copiar link:', error);
+          alert('Não foi possível copiar o link. Por favor, copie manualmente: ' + storeUrl);
+        }
+      });
+    }
+
+    // Visitar loja
+    if (visitStoreBtn) {
+      visitStoreBtn.addEventListener('click', () => {
+        window.open(storeUrl, '_blank');
+      });
+    }
+  } else if (storeLinkSlug) {
+    storeLinkSlug.textContent = 'configurando...';
   }
-}
-
-// Mostrar aviso de trial
-function showTrialWarning(daysLeft) {
-  const warning = document.createElement('div');
-  warning.className = 'alert alert-warning';
-  warning.innerHTML = `
-    <strong>⚠️ Atenção!</strong> Seu período de teste termina em ${daysLeft} dia(s).
-    <a href="settings.html">Assine agora</a> para continuar usando o StyleLink.
-  `;
-
-  const contentHeader = document.querySelector('.content-header');
-  contentHeader.insertAdjacentElement('afterend', warning);
-}
-
-// Mostrar trial expirado
-function showTrialExpired() {
-  const warning = document.createElement('div');
-  warning.className = 'alert alert-danger';
-  warning.innerHTML = `
-    <strong>❌ Trial Expirado!</strong> Seu período de teste terminou.
-    <a href="settings.html">Assine agora</a> para reativar sua loja.
-  `;
-
-  const contentHeader = document.querySelector('.content-header');
-  contentHeader.insertAdjacentElement('afterend', warning);
 }
 
 // Configurar link da página pública
 function setupPublicPageLink(slug) {
-  if (slug) {
+  if (slug && viewPublicPageBtn) {
     const publicUrl = `http://localhost:8081?slug=${slug}`;
-    viewPublicPageBtn.href = publicUrl;
-    viewPublicPageBtn.style.display = 'inline-flex';
-  } else {
-    viewPublicPageBtn.style.display = 'none';
+    viewPublicPageBtn.addEventListener('click', () => {
+      window.open(publicUrl, '_blank');
+    });
   }
 }
 

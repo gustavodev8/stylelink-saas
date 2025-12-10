@@ -7,6 +7,8 @@ const auth = require('../middleware/auth');
 // Rotas públicas
 router.post('/register', validateRegister, validate, authController.register);
 router.post('/login', validateLogin, validate, authController.login);
+router.post('/verify-email', authController.verifyEmailCode);
+router.post('/resend-code', authController.resendVerificationCode);
 router.get('/check-slug/:slug', authController.checkSlug);
 
 // Rotas protegidas

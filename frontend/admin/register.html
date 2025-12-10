@@ -6,40 +6,82 @@
   <title>Criar Conta - StyleLink Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-box">
-      <div class="logo">
-        <h1>StyleLink</h1>
-        <p>Crie sua conta gratuitamente</p>
+  <div class="auth-container">
+    <div class="auth-card">
+      <!-- Brand Header -->
+      <div class="brand-header">
+        <div class="brand-logo">
+          <h1>StyleLink<span class="brand-badge">Pro</span></h1>
+        </div>
+        <p class="brand-subtitle">Crie sua conta gratuitamente</p>
       </div>
 
-      <form id="registerForm">
+      <!-- Trial Info -->
+      <div class="trial-info">
+        <p>✨ 7 dias de teste grátis</p>
+        <p>🚀 Sem cartão de crédito</p>
+      </div>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="auth-form">
         <div class="form-group">
-          <label for="storeName">Nome da Loja *</label>
-          <input type="text" id="storeName" placeholder="Ex: Minha Loja Fashion" required>
+          <label for="storeName" class="form-label">
+            Nome da Loja <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="storeName"
+            class="form-input"
+            placeholder="Ex: Minha Loja Fashion"
+            autocomplete="organization"
+            required>
         </div>
 
         <div class="form-group">
-          <label for="storeSlug">Link da Loja *</label>
+          <label for="storeSlug" class="form-label">
+            Link da Loja <span class="required">*</span>
+          </label>
           <div class="input-with-prefix">
-            <span class="prefix">stylelink.com/</span>
-            <input type="text" id="storeSlug" placeholder="minhaloja" required>
+            <span class="input-prefix">stylelink.com/</span>
+            <input
+              type="text"
+              id="storeSlug"
+              class="form-input"
+              placeholder="minhaloja"
+              autocomplete="off"
+              required>
           </div>
           <small id="slugFeedback" class="field-feedback"></small>
         </div>
 
         <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" placeholder="seu@email.com" required>
+          <label for="email" class="form-label">
+            Email <span class="required">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="seu@email.com"
+            autocomplete="email"
+            required>
         </div>
 
         <div class="form-group">
-          <label for="password">Senha *</label>
-          <input type="password" id="password" placeholder="Mínimo 6 caracteres" required>
+          <label for="password" class="form-label">
+            Senha <span class="required">*</span>
+          </label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            placeholder="Mínimo 6 caracteres"
+            autocomplete="new-password"
+            required>
         </div>
 
         <button type="submit" class="btn btn-primary">
@@ -47,13 +89,9 @@
         </button>
       </form>
 
-      <p class="register-link">
-        Já tem conta? <a href="index.html">Faça login</a>
-      </p>
-
-      <div class="trial-info">
-        <p>✨ 7 dias de teste grátis</p>
-        <p>🚀 Sem cartão de crédito</p>
+      <!-- Footer Links -->
+      <div class="auth-footer">
+        <p>Já tem conta? <a href="index.html">Faça login</a></p>
       </div>
     </div>
   </div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar Email - StyleLink Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <!-- Brand Header -->
+      <div class="brand-header">
+        <div class="brand-logo">
+          <h1>StyleLink<span class="brand-badge">Pro</span></h1>
+        </div>
+        <p class="brand-subtitle">Verifique seu email</p>
+      </div>
+
+      <!-- Verification Info -->
+      <div class="verification-info">
+        <p>Enviamos um código de 6 dígitos para:</p>
+        <p class="email-display" id="emailDisplay"></p>
+      </div>
+
+      <!-- Verify Form -->
+      <form id="verifyForm" class="auth-form">
+        <div class="form-group">
+          <label for="code" class="form-label">Código de Verificação</label>
+          <input
+            type="text"
+            id="code"
+            class="form-input code-input"
+            maxlength="6"
+            placeholder="000000"
+            autocomplete="off"
+            required>
+          <small class="code-hint">Digite o código de 6 dígitos que você recebeu</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Verificar Email
+        </button>
+      </form>
+
+      <!-- Resend Section -->
+      <div class="resend-section">
+        <p>Não recebeu o código?</p>
+        <button type="button" id="resendBtn" class="btn-link">Reenviar código</button>
+        <p id="resendTimer" class="timer-text"></p>
+      </div>
+
+      <!-- Footer Links -->
+      <div class="auth-footer">
+        <p><a href="index.html">Voltar para o login</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>

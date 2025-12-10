@@ -1,19 +1,21 @@
-# 🚀 StyleLink SaaS - Plataforma para Lojas de Roupa
+# 🚀 StyleLink SaaS - Plataforma Link in Bio
 
-**Sistema completo de "Link na Bio" para lojas de roupa com painel administrativo**
+**Sistema completo de "Link in Bio" com painel administrativo profissional**
 
 ---
 
 ## 📋 Sobre o Projeto
 
-StyleLink é uma plataforma SaaS que permite lojas de roupa criarem sua própria página personalizada (link na bio) para exibir:
-- ✅ Catálogo de produtos com fotos
-- ✅ Informações de contato e localização
+StyleLink é uma plataforma SaaS que permite criar páginas personalizadas "link in bio" para exibir:
+- ✅ Catálogo de produtos com fotos e preços
+- ✅ Página pública moderna e responsiva
 - ✅ Links para redes sociais
-- ✅ Destaques e produtos mais vendidos
+- ✅ Analytics e métricas de acesso
 - ✅ Integração direta com WhatsApp
+- ✅ Dashboard completo para gerenciar tudo
+- ✅ Sistema de registro e autenticação
 
-**Diferencial:** O lojista gerencia tudo através de um painel administrativo intuitivo, sem precisar de conhecimento técnico.
+**Diferencial:** O cliente gerencia tudo através de um painel administrativo intuitivo, sem precisar de conhecimento técnico. Cada cliente tem seu próprio link único (ex: `stylelink.com/seu-slug`).
 
 ---
 

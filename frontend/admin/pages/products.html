@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos - StyleLink Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/products.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#brand-gradient)"/>
+            <path d="M10 12L16 8L22 12V20L16 24L10 20V12Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+            <defs>
+              <linearGradient id="brand-gradient" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#6366F1"/>
+                <stop offset="100%" stop-color="#8B5CF6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="brand-name">StyleLink</span>
+        <span class="brand-badge">Pro</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <span class="nav-section-title">Principal</span>
+          <a href="dashboard.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="products.html" class="nav-link active">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
+            </svg>
+            <span>Produtos</span>
+            <span class="nav-badge" id="sidebarProductCount">0</span>
+          </a>
+          <a href="store.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Minha Loja</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <span class="nav-section-title">Marketing</span>
+          <a href="social.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            <span>Redes Sociais</span>
+          </a>
+          <a href="analytics.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            <span>Analytics</span>
+            <span class="nav-badge new">Novo</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <span class="nav-section-title">Sistema</span>
+          <a href="settings.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+            </svg>
+            <span>Configurações</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="user-avatar">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar">
+          </div>
+          <div class="user-info">
+            <span class="user-name">Minha Loja</span>
+            <span class="user-plan">Plano Pro</span>
+          </div>
+          <button class="user-menu-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="1"/>
+              <circle cx="12" cy="5" r="1"/>
+              <circle cx="12" cy="19" r="1"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="breadcrumb">
+          <span>Catálogo</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+          <span class="current">Produtos</span>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" title="Notificações">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 01-3.46 0"/>
+            </svg>
+            <span class="notification-dot"></span>
+          </button>
+          <button class="icon-btn" title="Ajuda">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="page-header-content">
+            <h1>Produtos</h1>
+            <p class="page-subtitle">Gerencie seu catálogo de produtos e mantenha sua loja atualizada</p>
+          </div>
+          <div class="page-header-actions">
+            <button class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Importar
+            </button>
+            <button class="btn btn-primary" id="addProductBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              Novo Produto
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+          <div class="stat-item">
+            <div class="stat-icon total">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">0</span>
+              <span class="stat-label">Total de Produtos</span>
+            </div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-icon active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">0</span>
+              <span class="stat-label">Ativos</span>
+            </div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-icon low">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">0</span>
+              <span class="stat-label">Estoque Baixo</span>
+            </div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-icon views">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">0</span>
+              <span class="stat-label">Visualizações/mês</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Buscar produtos...">
+            <kbd>⌘K</kbd>
+          </div>
+          <div class="toolbar-filters">
+            <div class="filter-dropdown">
+              <button class="filter-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+                Status
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+            </div>
+            <div class="filter-dropdown">
+              <button class="filter-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+                </svg>
+                Categoria
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+            </div>
+            <div class="view-toggle">
+              <button class="view-btn active" data-view="grid">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"/>
+                  <rect x="14" y="3" width="7" height="7"/>
+                  <rect x="3" y="14" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/>
+                </svg>
+              </button>
+              <button class="view-btn" data-view="list">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="8" y1="6" x2="21" y2="6"/>
+                  <line x1="8" y1="12" x2="21" y2="12"/>
+                  <line x1="8" y1="18" x2="21" y2="18"/>
+                  <line x1="3" y1="6" x2="3.01" y2="6"/>
+                  <line x1="3" y1="12" x2="3.01" y2="12"/>
+                  <line x1="3" y1="18" x2="3.01" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid" style="display: none;">
+          <!-- Products will be loaded dynamically via JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-illustration">
+            <svg viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="100" r="80" fill="#f3f4f6"/>
+              <rect x="60" y="70" width="80" height="60" rx="8" fill="#e5e7eb"/>
+              <rect x="70" y="80" width="30" height="4" rx="2" fill="#9ca3af"/>
+              <rect x="70" y="90" width="50" height="4" rx="2" fill="#d1d5db"/>
+              <rect x="70" y="100" width="40" height="4" rx="2" fill="#d1d5db"/>
+              <circle cx="130" cy="60" r="20" fill="#6366f1" fill-opacity="0.2"/>
+              <path d="M130 50v20M120 60h20" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Nenhum produto cadastrado</h3>
+          <p>Comece adicionando seu primeiro produto ao catálogo para começar a vender</p>
+          <button class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Adicionar Primeiro Produto
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Adicionar/Editar Produto -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Novo Produto</h2>
+        <button class="modal-close" onclick="closeProductModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="productForm" class="modal-body">
+        <input type="hidden" id="productId">
+
+        <div class="form-section">
+          <h3 class="form-section-title">Informações Básicas</h3>
+
+          <div class="form-grid">
+            <div class="form-group span-2">
+              <label for="productName">Nome do Produto</label>
+              <input type="text" id="productName" placeholder="Ex: Camiseta Básica Premium" required>
+            </div>
+
+            <div class="form-group">
+              <label for="productPrice">Preço</label>
+              <div class="input-with-prefix">
+                <span>R$</span>
+                <input type="number" id="productPrice" step="0.01" min="0" placeholder="0,00" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="productCategory">Categoria</label>
+              <select id="productCategory">
+                <option value="roupas">Roupas</option>
+                <option value="calcados">Calçados</option>
+                <option value="acessorios">Acessórios</option>
+                <option value="outros">Outros</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="form-section-title">Imagem do Produto</h3>
+
+          <!-- Upload Area with Drag & Drop -->
+          <div class="upload-area" id="uploadArea">
+            <div class="upload-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <h4>Arraste uma imagem ou clique para selecionar</h4>
+              <p>PNG, JPG ou WEBP até 5MB</p>
+              <input type="file" id="imageFile" accept="image/*" hidden>
+            </div>
+            <div class="image-preview" id="imagePreview" style="display: none;">
+              <img id="previewImg" src="" alt="Preview">
+              <button type="button" class="remove-image" id="removeImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- URL Input as Fallback -->
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="productImages">Ou cole a URL da imagem</label>
+            <div class="input-with-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+              </svg>
+              <input type="url" id="productImages" placeholder="https://exemplo.com/imagem.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="form-section-title">Tamanhos Disponíveis</h3>
+
+          <div class="size-chips" id="sizeChips">
+            <button type="button" class="chip-btn" data-size="PP">PP</button>
+            <button type="button" class="chip-btn" data-size="P">P</button>
+            <button type="button" class="chip-btn" data-size="M">M</button>
+            <button type="button" class="chip-btn" data-size="G">G</button>
+            <button type="button" class="chip-btn" data-size="GG">GG</button>
+            <button type="button" class="chip-btn" data-size="XG">XG</button>
+          </div>
+          <input type="hidden" id="productSizes">
+        </div>
+
+        <div class="form-section">
+          <h3 class="form-section-title">Cores Disponíveis</h3>
+
+          <div class="color-palette" id="colorPalette">
+            <button type="button" class="color-btn" data-color="Preto" style="background: #1a1a1a;" title="Preto"></button>
+            <button type="button" class="color-btn" data-color="Branco" style="background: #ffffff; border: 2px solid #e5e7eb;" title="Branco"></button>
+            <button type="button" class="color-btn" data-color="Cinza" style="background: #6b7280;" title="Cinza"></button>
+            <button type="button" class="color-btn" data-color="Vermelho" style="background: #ef4444;" title="Vermelho"></button>
+            <button type="button" class="color-btn" data-color="Azul" style="background: #3b82f6;" title="Azul"></button>
+            <button type="button" class="color-btn" data-color="Verde" style="background: #10b981;" title="Verde"></button>
+            <button type="button" class="color-btn" data-color="Amarelo" style="background: #f59e0b;" title="Amarelo"></button>
+            <button type="button" class="color-btn" data-color="Rosa" style="background: #ec4899;" title="Rosa"></button>
+            <button type="button" class="color-btn" data-color="Roxo" style="background: #8b5cf6;" title="Roxo"></button>
+            <button type="button" class="color-btn" data-color="Laranja" style="background: #f97316;" title="Laranja"></button>
+            <button type="button" class="color-btn" data-color="Marrom" style="background: #92400e;" title="Marrom"></button>
+            <button type="button" class="color-btn" data-color="Bege" style="background: #d4a574;" title="Bege"></button>
+          </div>
+          <input type="hidden" id="productColors">
+        </div>
+
+        <div class="form-section">
+          <h3 class="form-section-title">Estoque</h3>
+
+          <div class="stock-options">
+            <label class="stock-option">
+              <input type="radio" name="stockStatus" value="available" checked>
+              <div class="stock-card">
+                <div class="stock-icon available">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <span class="stock-label">Disponível</span>
+                <span class="stock-description">Produto em estoque normal</span>
+              </div>
+            </label>
+
+            <label class="stock-option">
+              <input type="radio" name="stockStatus" value="low">
+              <div class="stock-card">
+                <div class="stock-icon low">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                </div>
+                <span class="stock-label">Últimas Peças</span>
+                <span class="stock-description">Estoque baixo (1-9 unidades)</span>
+              </div>
+            </label>
+
+            <label class="stock-option">
+              <input type="radio" name="stockStatus" value="out">
+              <div class="stock-card">
+                <div class="stock-icon out">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </div>
+                <span class="stock-label">Esgotado</span>
+                <span class="stock-description">Sem estoque disponível</span>
+              </div>
+            </label>
+          </div>
+          <input type="hidden" id="productStock" value="0">
+        </div>
+
+        <div class="form-section collapsible">
+          <button type="button" class="collapsible-header" id="descriptionToggle">
+            <h3 class="form-section-title">Descrição (Opcional)</h3>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="collapsible-content" id="descriptionContent" style="display: none;">
+            <div class="form-group">
+              <textarea id="productDescription" rows="4" placeholder="Descreva detalhes, materiais, cuidados..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-toggle">
+            <div class="toggle-info">
+              <span class="toggle-label">Produto Ativo</span>
+              <span class="toggle-description">Produtos ativos ficam visíveis na sua loja</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="productActive" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </form>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeProductModal()">Cancelar</button>
+        <button type="submit" form="productForm" class="btn btn-primary">Salvar Produto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirmar Exclusão -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2>Excluir Produto</h2>
+        <button class="modal-close" onclick="closeDeleteModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="delete-warning">
+          <div class="warning-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <p>Tem certeza que deseja excluir <strong id="deleteProductName">este produto</strong>?</p>
+          <span class="warning-text">Esta ação não pode ser desfeita.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeDeleteModal()">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir Produto</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal functions
+    function openProductModal() {
+      document.getElementById('productModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Event listeners
+    document.getElementById('addProductBtn').addEventListener('click', openProductModal);
+
+    // Close modal on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // View toggle
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Keyboard shortcut for search
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('searchInput').focus();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -126,12 +126,22 @@ registerForm.addEventListener('submit', async (e) => {
     const response = await api.register(email, password, storeName, storeSlug);
 
     if (response.success) {
-      showAlert('Conta criada com sucesso! Redirecionando...', 'success');
+      // Verificar se precisa de verificação de email
+      if (response.data && response.data.needsVerification) {
+        showAlert('Conta criada! Verifique seu email.', 'success');
 
-      // Redirecionar após 1.5 segundos
-      setTimeout(() => {
-        window.location.href = 'pages/dashboard.html';
-      }, 1500);
+        // Redirecionar para página de verificação após 1 segundo
+        setTimeout(() => {
+          window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
+        }, 1000);
+      } else {
+        // Fluxo antigo (caso não tenha verificação)
+        showAlert('Conta criada com sucesso! Redirecionando...', 'success');
+
+        setTimeout(() => {
+          window.location.href = 'pages/dashboard.html';
+        }, 1500);
+      }
     }
   } catch (error) {
     console.error('Erro no registro:', error);

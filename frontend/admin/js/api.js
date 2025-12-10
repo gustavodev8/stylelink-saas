@@ -29,7 +29,11 @@ class API {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Erro na requisição');
+        // Criar erro com dados adicionais
+        const error = new Error(data.message || 'Erro na requisição');
+        error.needsVerification = data.needsVerification;
+        error.email = data.email;
+        throw error;
       }
 
       return data;

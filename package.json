@@ -1,0 +1,14 @@
+{
+  "name": "stylelink-saas",
+  "version": "1.0.0",
+  "description": "StyleLink - Link in Bio SaaS Platform",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && node src/server.js",
+    "frontend": "cd frontend && python -m http.server 8080",
+    "start": "npm run backend"
+  },
+  "keywords": ["saas", "link-in-bio", "ecommerce"],
+  "author": "",
+  "license": "MIT"
+}

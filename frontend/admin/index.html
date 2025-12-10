@@ -6,37 +6,57 @@
   <title>Login - StyleLink Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-box">
-      <div class="logo">
-        <h1>StyleLink</h1>
-        <p>Painel Administrativo</p>
+  <div class="auth-container">
+    <div class="auth-card">
+      <!-- Brand Header -->
+      <div class="brand-header">
+        <div class="brand-logo">
+          <h1>StyleLink<span class="brand-badge">Pro</span></h1>
+        </div>
+        <p class="brand-subtitle">Faça login na sua conta</p>
       </div>
 
-      <form id="loginForm">
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form">
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" required>
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="seu@email.com"
+            autocomplete="email"
+            required>
         </div>
 
         <div class="form-group">
-          <label for="password">Senha</label>
-          <input type="password" id="password" required>
+          <label for="password" class="form-label">Senha</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Entrar</button>
+        <button type="submit" class="btn btn-primary">
+          Entrar
+        </button>
       </form>
 
-      <p class="register-link">
-        Não tem conta? <a href="register.html">Cadastre-se</a>
-      </p>
+      <!-- Footer Links -->
+      <div class="auth-footer">
+        <p>Não tem conta? <a href="register.html">Cadastre-se gratuitamente</a></p>
+      </div>
     </div>
   </div>
 
+  <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
 </body>
 </html>

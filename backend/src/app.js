@@ -78,6 +78,7 @@ const storeRoutes = require('./routes/store');
 const socialRoutes = require('./routes/social');
 const pageRoutes = require('./routes/page');
 const uploadRoutes = require('./routes/upload');
+const publicRoutes = require('./routes/public');
 
 // Usar rotas
 app.use('/api/auth', authRoutes);
@@ -86,6 +87,7 @@ app.use('/api/store', storeRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/page', pageRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/public', publicRoutes);
 
 // ===================================
 // ERROR HANDLERS

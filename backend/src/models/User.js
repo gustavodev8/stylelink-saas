@@ -75,6 +75,63 @@ class User {
     const result = await pool.query(query, [slug]);
     return result.rows.length === 0;
   }
+
+  // Salvar código de verificação
+  static async saveVerificationCode(id, code) {
+    const expiresAt = new Date();
+    expiresAt.setMinutes(expiresAt.getMinutes() + 15); // Expira em 15 minutos
+
+    const query = `
+      UPDATE users
+      SET verification_code = $1, verification_code_expires = $2
+      WHERE id = $3
+      RETURNING id
+    `;
+    const result = await pool.query(query, [code, expiresAt, id]);
+    return result.rows[0];
+  }
+
+  // Verificar código
+  static async verifyCode(email, code) {
+    const query = `
+      SELECT id, email, store_slug, verification_code_expires
+      FROM users
+      WHERE email = $1 AND verification_code = $2
+    `;
+    const result = await pool.query(query, [email, code]);
+
+    if (result.rows.length === 0) {
+      return { valid: false, message: 'Código inválido' };
+    }
+
+    const user = result.rows[0];
+    const now = new Date();
+
+    if (new Date(user.verification_code_expires) < now) {
+      return { valid: false, message: 'Código expirado' };
+    }
+
+    return { valid: true, user };
+  }
+
+  // Marcar email como verificado
+  static async markEmailVerified(id) {
+    const query = `
+      UPDATE users
+      SET email_verified = true,
+          verification_code = NULL,
+          verification_code_expires = NULL
+      WHERE id = $1
+      RETURNING id, email, store_slug, email_verified
+    `;
+    const result = await pool.query(query, [id]);
+    return result.rows[0];
+  }
+
+  // Gerar código de 6 dígitos
+  static generateVerificationCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
 }
 
 module.exports = User;

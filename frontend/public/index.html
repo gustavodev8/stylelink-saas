@@ -3,55 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">Loja - StyleLink</title>
+  <title id="pageTitle">Link in Bio - StyleLink</title>
+  <meta name="description" content="Meu link in bio profissional">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/template1.css">
 </head>
 <body>
-  <div class="page-container">
-    <!-- Header -->
-    <header class="store-header">
-      <div id="storeBanner" class="banner"></div>
-      <div class="store-info">
-        <img id="storeLogo" src="" alt="Logo" class="logo">
-        <h1 id="storeName">-</h1>
-        <p id="storeBio">-</p>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <p>Carregando...</p>
+  </div>
+
+  <!-- Main Container -->
+  <div id="mainContainer" class="page-container" style="display: none;">
+    <!-- Header/Profile Section -->
+    <header class="profile-section">
+      <div class="profile-avatar">
+        <img id="storeAvatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=StyleLink" alt="Avatar">
+      </div>
+      <h1 id="storeName" class="store-name">Minha Loja</h1>
+      <p id="storeDescription" class="store-description">Bem-vindo ao meu link in bio!</p>
+
+      <!-- Social Links -->
+      <div id="socialLinks" class="social-links">
+        <!-- Social icons will be dynamically inserted here -->
       </div>
     </header>
 
-    <!-- Social Links -->
-    <section id="socialSection" class="social-links">
-      <!-- Links serão inseridos aqui via JS -->
-    </section>
-
-    <!-- Products Featured -->
-    <section id="featuredSection" class="products-section">
-      <h2>Destaques</h2>
-      <div id="featuredGrid" class="products-grid">
-        <!-- Produtos em destaque serão inseridos aqui -->
-      </div>
-    </section>
-
-    <!-- All Products -->
-    <section class="products-section">
-      <h2>Todos os Produtos</h2>
-      <div id="productsGrid" class="products-grid">
-        <!-- Produtos serão inseridos aqui -->
+    <!-- Products Section -->
+    <section id="productsSection" class="products-section">
+      <h2 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+          <line x1="7" y1="7" x2="7.01" y2="7"/>
+        </svg>
+        Produtos em Destaque
+      </h2>
+      <div id="productsList" class="products-grid">
+        <!-- Products will be dynamically inserted here -->
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="store-footer">
-      <p>Feito com <span style="color: #ef4444;">♥</span> usando <a href="https://stylelink.com" target="_blank">StyleLink</a></p>
+    <footer class="footer">
+      <p>
+        Feito com
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        </svg>
+        por <a href="/" target="_blank">StyleLink</a>
+      </p>
     </footer>
   </div>
 
-  <!-- Product Modal -->
-  <div id="productModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <div id="modalBody">
-        <!-- Conteúdo do produto será inserido aqui -->
-      </div>
+  <!-- Error Screen -->
+  <div id="errorScreen" class="error-screen" style="display: none;">
+    <div class="error-content">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <h2>Página não encontrada</h2>
+      <p id="errorMessage">Não foi possível encontrar esta loja. Verifique se o link está correto.</p>
+      <a href="/" class="btn-primary">Voltar ao início</a>
     </div>
   </div>
 
