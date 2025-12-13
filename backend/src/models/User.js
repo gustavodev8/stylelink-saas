@@ -128,10 +128,18 @@ class User {
     return result.rows[0];
   }
 
+  // Verificar email (alias para markEmailVerified)
+  static async verifyEmail(id, code) {
+    // Simplesmente marca como verificado sem validar código
+    // Usado quando SMTP não está configurado
+    return await this.markEmailVerified(id);
+  }
+
   // Gerar código de 6 dígitos
   static generateVerificationCode() {
     return Math.floor(100000 + Math.random() * 900000).toString();
   }
 }
+
 
 module.exports = User;
