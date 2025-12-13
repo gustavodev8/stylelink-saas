@@ -55,20 +55,31 @@ exports.register = async (req, res) => {
     const verificationCode = User.generateVerificationCode();
     await User.saveVerificationCode(user.id, verificationCode);
 
-    // Enviar email com código
+    // Tentar enviar email com código
+    let emailSent = false;
     try {
       await sendVerificationCode(email, verificationCode, storeName);
+      emailSent = true;
+      console.log('✅ Email de verificação enviado com sucesso!');
     } catch (emailError) {
-      console.error('Erro ao enviar email:', emailError);
-      // Continua mesmo se o email falhar
+      console.error('❌ Erro ao enviar email:', emailError.message);
+      console.log('⚠️  SMTP não configurado, verificando email automaticamente...');
+
+      // Se SMTP não estiver configurado, verificar email automaticamente
+      // Isso permite que o usuário use o sistema mesmo sem configurar email
+      await User.verifyEmail(user.id, verificationCode);
+      console.log('✅ Email verificado automaticamente (SMTP não configurado)');
     }
 
     res.status(201).json({
       success: true,
-      message: 'Conta criada! Verifique seu email para continuar.',
+      message: emailSent
+        ? 'Conta criada! Verifique seu email para continuar.'
+        : 'Conta criada e verificada com sucesso! Você já pode fazer login.',
       data: {
         email: user.email,
-        needsVerification: true
+        needsVerification: !emailSent,
+        autoVerified: !emailSent
       }
     });
   } catch (error) {

@@ -126,8 +126,17 @@ registerForm.addEventListener('submit', async (e) => {
     const response = await api.register(email, password, storeName, storeSlug);
 
     if (response.success) {
+      // Verificar se foi auto-verificado (SMTP não configurado)
+      if (response.data && response.data.autoVerified) {
+        showAlert('Conta criada e verificada! Você já pode fazer login.', 'success');
+
+        // Redirecionar para login após 1.5 segundo
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      }
       // Verificar se precisa de verificação de email
-      if (response.data && response.data.needsVerification) {
+      else if (response.data && response.data.needsVerification) {
         showAlert('Conta criada! Verifique seu email.', 'success');
 
         // Redirecionar para página de verificação após 1 segundo
