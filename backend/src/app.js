@@ -58,13 +58,11 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// Logging básico em desenvolvimento
-if (process.env.NODE_ENV === 'development') {
-  app.use((req, res, next) => {
-    console.log(`${req.method} ${req.path}`);
-    next();
-  });
-}
+// Logging de todas as requisições (produção e desenvolvimento)
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
 // ===================================
 // ROTAS
@@ -88,7 +86,7 @@ const pageRoutes = require('./routes/page');
 const uploadRoutes = require('./routes/upload');
 const publicRoutes = require('./routes/public');
 
-// Usar rotas
+// Usar rotas da API (IMPORTANTE: Antes do express.static)
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/store', storeRoutes);
@@ -101,24 +99,22 @@ app.use('/api/public', publicRoutes);
 // SERVIR ARQUIVOS ESTÁTICOS (FRONTEND)
 // ===================================
 
-// Servir arquivos estáticos do frontend
+// IMPORTANTE: Servir arquivos estáticos DEPOIS das rotas da API
+// para não interferir com as requisições para /api/*
 const frontendPath = path.join(__dirname, '../../frontend');
-app.use(express.static(frontendPath));
+
+// Rota raiz redireciona para admin
+app.get('/', (req, res) => {
+  res.redirect('/admin/index.html');
+});
 
 // Rota para a página pública (Link in Bio)
 app.get('/public', (req, res) => {
   res.sendFile(path.join(frontendPath, 'public', 'index.html'));
 });
 
-// Rota para o admin panel
-app.get('/admin/*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'admin', req.params[0]));
-});
-
-// Rota raiz redireciona para admin
-app.get('/', (req, res) => {
-  res.redirect('/admin/index.html');
-});
+// Servir arquivos estáticos do frontend
+app.use(express.static(frontendPath));
 
 // ===================================
 // ERROR HANDLERS

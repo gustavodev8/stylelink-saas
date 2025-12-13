@@ -22,24 +22,41 @@ class API {
     }
 
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const url = `${API_URL}${endpoint}`;
+      console.log('📡 Fazendo requisição para:', url);
+
+      const response = await fetch(url, {
         ...options,
         headers
       });
 
-      const data = await response.json();
+      console.log('📥 Status da resposta:', response.status);
+
+      // Tentar fazer parse do JSON
+      let data;
+      try {
+        data = await response.json();
+        console.log('📦 Dados recebidos:', data);
+      } catch (e) {
+        console.error('❌ Erro ao fazer parse do JSON:', e);
+        const text = await response.text();
+        console.error('📄 Resposta em texto:', text);
+        throw new Error('Resposta inválida do servidor');
+      }
 
       if (!response.ok) {
         // Criar erro com dados adicionais
         const error = new Error(data.message || 'Erro na requisição');
         error.needsVerification = data.needsVerification;
         error.email = data.email;
+        error.status = response.status;
+        error.data = data;
         throw error;
       }
 
       return data;
     } catch (error) {
-      console.error('Erro na API:', error);
+      console.error('❌ Erro na API:', error);
       throw error;
     }
   }
