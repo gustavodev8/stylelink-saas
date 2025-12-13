@@ -77,6 +77,31 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Rota de teste do banco de dados
+app.get('/api/test/db', async (req, res) => {
+  try {
+    const pool = require('./config/database');
+    const result = await pool.query('SELECT NOW() as current_time, version() as pg_version');
+    res.json({
+      success: true,
+      database: 'connected',
+      currentTime: result.rows[0].current_time,
+      postgresVersion: result.rows[0].pg_version,
+      env: {
+        hasJwtSecret: !!process.env.JWT_SECRET,
+        hasDatabaseUrl: !!process.env.DATABASE_URL,
+        nodeEnv: process.env.NODE_ENV
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      database: 'error',
+      error: error.message
+    });
+  }
+});
+
 // Importar rotas
 const authRoutes = require('./routes/auth');
 const productsRoutes = require('./routes/products');

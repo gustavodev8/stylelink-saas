@@ -83,10 +83,12 @@ exports.register = async (req, res) => {
 // Login
 exports.login = async (req, res) => {
   try {
+    console.log('🔐 Tentativa de login:', req.body.email);
     const { email, password } = req.body;
 
     // Validar dados
     if (!email || !password) {
+      console.log('❌ Dados incompletos');
       return res.status(400).json({
         success: false,
         message: 'Por favor, preencha email e senha'
@@ -94,7 +96,10 @@ exports.login = async (req, res) => {
     }
 
     // Buscar usuário
+    console.log('🔍 Buscando usuário no banco...');
     const user = await User.findByEmail(email);
+    console.log('👤 Usuário encontrado:', user ? 'Sim' : 'Não');
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -103,7 +108,10 @@ exports.login = async (req, res) => {
     }
 
     // Verificar senha
+    console.log('🔑 Verificando senha...');
     const isPasswordValid = await User.verifyPassword(password, user.password_hash);
+    console.log('✅ Senha válida:', isPasswordValid);
+
     if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
@@ -112,6 +120,7 @@ exports.login = async (req, res) => {
     }
 
     // Verificar se o email foi verificado
+    console.log('📧 Email verificado:', user.email_verified);
     if (!user.email_verified) {
       return res.status(403).json({
         success: false,
@@ -122,11 +131,14 @@ exports.login = async (req, res) => {
     }
 
     // Atualizar último login
+    console.log('⏰ Atualizando último login...');
     await User.updateLastLogin(user.id);
 
     // Gerar token
+    console.log('🎫 Gerando token...');
     const token = generateToken(user.id);
 
+    console.log('✅ Login bem-sucedido!');
     res.json({
       success: true,
       message: 'Login realizado com sucesso!',
@@ -141,10 +153,13 @@ exports.login = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Erro no login:', error);
+    console.error('❌ ERRO NO LOGIN:', error);
+    console.error('Stack trace:', error.stack);
+    console.error('Mensagem:', error.message);
     res.status(500).json({
       success: false,
-      message: 'Erro ao fazer login'
+      message: 'Erro ao fazer login',
+      ...(process.env.NODE_ENV === 'development' && { error: error.message })
     });
   }
 };
