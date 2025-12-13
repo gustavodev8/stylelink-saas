@@ -2,13 +2,20 @@
   "name": "stylelink-saas",
   "version": "1.0.0",
   "description": "StyleLink - Link in Bio SaaS Platform",
+  "main": "backend/src/server.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "cd backend && node src/server.js",
     "frontend": "cd frontend && python -m http.server 8080",
-    "start": "npm run backend"
+    "start": "cd backend && node src/server.js",
+    "postinstall": "cd backend && npm install"
   },
   "keywords": ["saas", "link-in-bio", "ecommerce"],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {}
 }
