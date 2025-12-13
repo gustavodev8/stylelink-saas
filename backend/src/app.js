@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -14,18 +15,34 @@ const app = express();
 // MIDDLEWARES GLOBAIS
 // ===================================
 
-// Segurança com Helmet
-app.use(helmet());
+// Segurança com Helmet (configurado para permitir recursos estáticos)
+app.use(helmet({
+  contentSecurityPolicy: false, // Desabilita CSP para permitir inline scripts
+  crossOriginEmbedderPolicy: false
+}));
 
-// CORS
+// CORS - permitir requisições do mesmo domínio e localhost
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_ADMIN_URL,
-    process.env.FRONTEND_PUBLIC_URL,
-    'http://localhost:3000',
-    'http://localhost:8080',
-    'http://localhost:8081'
-  ],
+  origin: function(origin, callback) {
+    // Permitir requisições sem origin (mobile apps, postman, etc)
+    if (!origin) return callback(null, true);
+
+    // Lista de origens permitidas
+    const allowedOrigins = [
+      process.env.FRONTEND_ADMIN_URL,
+      process.env.FRONTEND_PUBLIC_URL,
+      'http://localhost:3000',
+      'http://localhost:8080',
+      'http://localhost:8081',
+      origin // Permitir a própria origem (quando frontend está no mesmo domínio)
+    ];
+
+    if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('railway.app')) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Permitir todas por enquanto
+    }
+  },
   credentials: true
 }));
 
@@ -54,15 +71,6 @@ if (process.env.NODE_ENV === 'development') {
 // ===================================
 
 // Rota de health check
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'StyleLink API está rodando! 🚀',
-    version: '1.0.0',
-    timestamp: new Date().toISOString()
-  });
-});
-
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -88,6 +96,29 @@ app.use('/api/social', socialRoutes);
 app.use('/api/page', pageRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/public', publicRoutes);
+
+// ===================================
+// SERVIR ARQUIVOS ESTÁTICOS (FRONTEND)
+// ===================================
+
+// Servir arquivos estáticos do frontend
+const frontendPath = path.join(__dirname, '../../frontend');
+app.use(express.static(frontendPath));
+
+// Rota para a página pública (Link in Bio)
+app.get('/public', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'public', 'index.html'));
+});
+
+// Rota para o admin panel
+app.get('/admin/*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'admin', req.params[0]));
+});
+
+// Rota raiz redireciona para admin
+app.get('/', (req, res) => {
+  res.redirect('/admin/index.html');
+});
 
 // ===================================
 // ERROR HANDLERS

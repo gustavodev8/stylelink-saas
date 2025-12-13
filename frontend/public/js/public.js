@@ -2,7 +2,8 @@
 // STYLELINK PUBLIC - LINK IN BIO
 // ===================================
 
-const API_URL = 'http://localhost:3000/api';
+// URL da API - usa URL relativa para funcionar em qualquer ambiente
+const API_URL = window.location.origin + '/api';
 
 // Pegar slug da URL
 const urlParams = new URLSearchParams(window.location.search);

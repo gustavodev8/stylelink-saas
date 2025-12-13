@@ -15,7 +15,11 @@
       "Bash(timeout /t 2 /nobreak)",
       "Bash(powershell -Command:*)",
       "Bash(python -m http.server:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(gh pr list:*)"
     ],
     "deny": [],
     "ask": []
