@@ -5,6 +5,7 @@
 require('dotenv').config();
 const app = require('./app');
 const { testConnection } = require('./config/database');
+const { runMigrations } = require('./database/migrate');
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,11 +15,14 @@ const startServer = async () => {
     // Testar conexão com o banco
     console.log('🔄 Testando conexão com o banco de dados...');
     const dbConnected = await testConnection();
-    
+
     if (!dbConnected) {
       console.error('❌ Não foi possível conectar ao banco de dados');
       process.exit(1);
     }
+
+    // Executar migrações
+    await runMigrations();
 
     // Iniciar servidor
     app.listen(PORT, () => {

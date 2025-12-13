@@ -12,6 +12,13 @@ require('dotenv').config();
 const app = express();
 
 // ===================================
+// CONFIGURAÇÕES
+// ===================================
+
+// Trust proxy (necessário para Railway e outros serviços de hospedagem)
+app.set('trust proxy', 1);
+
+// ===================================
 // MIDDLEWARES GLOBAIS
 // ===================================
 
