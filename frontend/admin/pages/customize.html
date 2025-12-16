@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalizar - StyleLink Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/products.css">
+  <link rel="stylesheet" href="../css/customize.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="brand-title">StyleLink<span class="brand-badge">Pro</span></h1>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="products.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"></path>
+            <path d="M9 2v5M15 2v5"></path>
+          </svg>
+          <span>Produtos</span>
+        </a>
+
+        <a href="customize.html" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6"></path>
+            <path d="m4.2 4.2 4.3 4.3m5.5 5.5 4.3 4.3M1 12h6m6 0h6M4.2 19.8l4.3-4.3m5.5-5.5 4.3-4.3"></path>
+          </svg>
+          <span>Personalizar</span>
+        </a>
+
+        <a href="settings.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6M4.2 4.2l4.3 4.3m5.5 5.5 4.3 4.3M1 12h6m6 0h6M4.2 19.8l4.3-4.3m5.5-5.5 4.3-4.3"></path>
+          </svg>
+          <span>Configurações</span>
+        </a>
+
+        <a href="analytics.html" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"></path>
+            <path d="m19 9-5 5-4-4-3 3"></path>
+          </svg>
+          <span>Analytics</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="logout-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" x-data="customizeApp()">
+      <!-- Header -->
+      <header class="page-header">
+        <div>
+          <h1 class="page-title">Personalizar Página</h1>
+          <p class="page-subtitle">Customize a aparência da sua página pública</p>
+        </div>
+        <div class="header-actions">
+          <button @click="previewPage()" class="btn btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            Ver Prévia
+          </button>
+          <button @click="saveCustomization()" class="btn btn-primary" :disabled="saving">
+            <span x-show="!saving">Salvar Alterações</span>
+            <span x-show="saving">Salvando...</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Customization Grid -->
+      <div class="customize-grid">
+        <!-- Left: Settings -->
+        <div class="customize-panel">
+
+          <!-- Cores -->
+          <div class="settings-section">
+            <h3 class="section-title">🎨 Cores do Tema</h3>
+
+            <div class="form-group">
+              <label class="form-label">Cor Primária</label>
+              <div class="color-input-group">
+                <input
+                  type="color"
+                  x-model="settings.primaryColor"
+                  class="color-picker">
+                <input
+                  type="text"
+                  x-model="settings.primaryColor"
+                  class="form-input"
+                  placeholder="#6366f1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cor Secundária</label>
+              <div class="color-input-group">
+                <input
+                  type="color"
+                  x-model="settings.secondaryColor"
+                  class="color-picker">
+                <input
+                  type="text"
+                  x-model="settings.secondaryColor"
+                  class="form-input"
+                  placeholder="#8b5cf6">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cor de Fundo</label>
+              <div class="color-input-group">
+                <input
+                  type="color"
+                  x-model="settings.backgroundColor"
+                  class="color-picker">
+                <input
+                  type="text"
+                  x-model="settings.backgroundColor"
+                  class="form-input"
+                  placeholder="#ffffff">
+              </div>
+            </div>
+
+            <div class="preset-colors">
+              <p class="preset-label">Paletas Predefinidas:</p>
+              <div class="preset-grid">
+                <button @click="applyPreset('purple')" class="preset-btn" title="Roxo">
+                  <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6)"></div>
+                </button>
+                <button @click="applyPreset('blue')" class="preset-btn" title="Azul">
+                  <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8)"></div>
+                </button>
+                <button @click="applyPreset('pink')" class="preset-btn" title="Rosa">
+                  <div style="background: linear-gradient(135deg, #ec4899, #be185d)"></div>
+                </button>
+                <button @click="applyPreset('green')" class="preset-btn" title="Verde">
+                  <div style="background: linear-gradient(135deg, #10b981, #059669)"></div>
+                </button>
+                <button @click="applyPreset('orange')" class="preset-btn" title="Laranja">
+                  <div style="background: linear-gradient(135deg, #f59e0b, #d97706)"></div>
+                </button>
+                <button @click="applyPreset('dark')" class="preset-btn" title="Escuro">
+                  <div style="background: linear-gradient(135deg, #1f2937, #111827)"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Informações -->
+          <div class="settings-section">
+            <h3 class="section-title">ℹ️ Informações da Loja</h3>
+
+            <div class="form-group">
+              <label class="form-label">Nome da Loja</label>
+              <input
+                type="text"
+                x-model="settings.storeName"
+                class="form-input"
+                placeholder="Minha Loja">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Biografia / Descrição</label>
+              <textarea
+                x-model="settings.bio"
+                class="form-input"
+                rows="3"
+                placeholder="Conte um pouco sobre sua loja..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">WhatsApp (com DDD)</label>
+              <input
+                type="tel"
+                x-model="settings.whatsapp"
+                class="form-input"
+                placeholder="11999999999">
+            </div>
+          </div>
+
+          <!-- Logo/Avatar -->
+          <div class="settings-section">
+            <h3 class="section-title">🖼️ Logo / Avatar</h3>
+
+            <div class="avatar-upload">
+              <div class="avatar-preview">
+                <img
+                  :src="settings.logoUrl || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + settings.storeName"
+                  alt="Logo">
+              </div>
+              <div>
+                <label class="btn btn-secondary btn-sm">
+                  <input type="file" accept="image/*" @change="handleLogoUpload" hidden>
+                  Trocar Logo
+                </label>
+                <p class="help-text">PNG, JPG até 2MB</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="preview-panel">
+          <div class="preview-header">
+            <h3>Prévia ao Vivo</h3>
+            <div class="preview-devices">
+              <button
+                @click="previewDevice = 'mobile'"
+                :class="{ 'active': previewDevice === 'mobile' }"
+                class="device-btn">
+                📱 Mobile
+              </button>
+              <button
+                @click="previewDevice = 'desktop'"
+                :class="{ 'active': previewDevice === 'desktop' }"
+                class="device-btn">
+                💻 Desktop
+              </button>
+            </div>
+          </div>
+
+          <div class="preview-container" :class="'preview-' + previewDevice">
+            <div class="preview-iframe-wrapper">
+              <iframe
+                id="previewFrame"
+                :srcdoc="getPreviewHTML()"
+                frameborder="0">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/customize.js"></script>
+</body>
+</html>

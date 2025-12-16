@@ -79,6 +79,9 @@ function renderStore(data) {
   // Título da página
   pageTitle.textContent = `${store.name || 'Loja'} - StyleLink`;
 
+  // Aplicar cores personalizadas
+  applyCustomColors(store);
+
   // Avatar
   if (store.avatar) {
     storeAvatar.src = store.avatar;
@@ -112,6 +115,51 @@ function renderStore(data) {
       </div>
     `;
   }
+}
+
+// Aplicar cores personalizadas
+function applyCustomColors(store) {
+  const primaryColor = store.primary_color || store.primaryColor || '#6366f1';
+  const secondaryColor = store.secondary_color || store.secondaryColor || '#8b5cf6';
+  const backgroundColor = store.background_color || store.backgroundColor || null;
+
+  // Criar/atualizar variáveis CSS
+  const root = document.documentElement;
+  root.style.setProperty('--primary-color', primaryColor);
+  root.style.setProperty('--secondary-color', secondaryColor);
+
+  // Aplicar gradiente de fundo
+  if (backgroundColor) {
+    document.body.style.background = backgroundColor;
+  } else {
+    document.body.style.background = `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`;
+  }
+
+  // Atualizar CSS dinamicamente
+  const styleId = 'custom-theme-styles';
+  let styleEl = document.getElementById(styleId);
+
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    document.head.appendChild(styleEl);
+  }
+
+  styleEl.textContent = `
+    .product-price {
+      color: ${primaryColor} !important;
+    }
+
+    .btn-whatsapp:hover {
+      background: ${primaryColor} !important;
+    }
+
+    .social-btn:hover {
+      background: ${primaryColor} !important;
+      color: white !important;
+      transform: scale(1.1);
+    }
+  `;
 }
 
 // Renderizar redes sociais
