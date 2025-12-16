@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste CSS - StyleLink</title>
+  <link rel="stylesheet" href="../css/products.css">
+  <link rel="stylesheet" href="../css/customize.css">
+  <style>
+    body {
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+    .test-box {
+      padding: 20px;
+      margin: 20px 0;
+      border: 2px solid #000;
+    }
+    .success {
+      background: #10b981;
+      color: white;
+    }
+    .error {
+      background: #ef4444;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Teste de Carregamento de CSS</h1>
+
+  <div class="test-box">
+    <h2>1. Este box tem CSS inline (sempre funciona)</h2>
+    <p>Se você está vendo este texto, o HTML está carregando.</p>
+  </div>
+
+  <div class="test-box customize-grid">
+    <h2>2. Teste de classe .customize-grid</h2>
+    <p>Se este box tiver display: grid, o customize.css carregou!</p>
+  </div>
+
+  <div class="test-box">
+    <h2>3. Teste de variáveis CSS</h2>
+    <button class="btn btn-primary" style="margin: 10px 0;">Botão Primary</button>
+    <p>Se o botão acima estiver estilizado, o products.css carregou!</p>
+  </div>
+
+  <div class="test-box">
+    <h2>4. Instruções de Debug</h2>
+    <ol>
+      <li>Abra o DevTools (F12)</li>
+      <li>Vá na aba "Network"</li>
+      <li>Recarregue a página (F5)</li>
+      <li>Procure por "products.css" e "customize.css"</li>
+      <li>Se aparecer 404 ou erro, o arquivo não está sendo servido</li>
+      <li>Se aparecer 200 OK mas sem estilo, é problema de CSS</li>
+    </ol>
+  </div>
+
+  <div class="test-box">
+    <h2>5. URLs sendo testadas:</h2>
+    <ul>
+      <li>../css/products.css</li>
+      <li>../css/customize.css</li>
+    </ul>
+    <p>Caminho atual: <code id="current-path"></code></p>
+    <p>Base URL: <code id="base-url"></code></p>
+  </div>
+
+  <script>
+    document.getElementById('current-path').textContent = window.location.pathname;
+    document.getElementById('base-url').textContent = window.location.origin;
+
+    // Verificar se variáveis CSS estão definidas
+    const root = document.documentElement;
+    const primaryColor = getComputedStyle(root).getPropertyValue('--primary');
+
+    if (primaryColor) {
+      console.log('✅ Variáveis CSS carregadas! --primary:', primaryColor);
+    } else {
+      console.error('❌ Variáveis CSS não encontradas!');
+    }
+
+    // Verificar se classe .customize-grid tem display: grid
+    const gridEl = document.querySelector('.customize-grid');
+    if (gridEl) {
+      const gridDisplay = getComputedStyle(gridEl).display;
+      console.log('Display da .customize-grid:', gridDisplay);
+      if (gridDisplay === 'grid') {
+        console.log('✅ customize.css carregou corretamente!');
+      } else {
+        console.error('❌ customize.css NÃO carregou!');
+      }
+    }
+  </script>
+</body>
+</html>

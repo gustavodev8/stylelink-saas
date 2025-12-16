@@ -268,5 +268,45 @@
 
   <script src="../js/api.js"></script>
   <script src="../js/customize.js"></script>
+
+  <!-- Debug CSS Loading -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const root = document.documentElement;
+      const primaryColor = getComputedStyle(root).getPropertyValue('--primary');
+
+      if (!primaryColor || primaryColor.trim() === '') {
+        console.error('❌ CSS não carregado! Variáveis CSS não encontradas.');
+        console.log('Verifique:');
+        console.log('1. Network tab: products.css e customize.css retornam 200 OK?');
+        console.log('2. Caminho relativo correto? Página em /admin/pages/, CSS em /admin/css/');
+        console.log('3. Railway fez redeploy após o push?');
+
+        // Mostrar alerta visual
+        const alert = document.createElement('div');
+        alert.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          left: 20px;
+          background: #ef4444;
+          color: white;
+          padding: 20px;
+          border-radius: 8px;
+          z-index: 99999;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          font-family: Arial, sans-serif;
+        `;
+        alert.innerHTML = `
+          <strong>⚠️ CSS não carregado!</strong><br>
+          <small>Abra o DevTools (F12) → Network para debug</small><br>
+          <small>Ou tente: Ctrl+Shift+R para hard refresh</small>
+        `;
+        document.body.appendChild(alert);
+      } else {
+        console.log('✅ CSS carregado corretamente! --primary:', primaryColor);
+      }
+    });
+  </script>
 </body>
 </html>
