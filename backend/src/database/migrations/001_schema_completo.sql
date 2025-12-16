@@ -45,6 +45,7 @@ CREATE TABLE stores (
     address TEXT,
     primary_color VARCHAR(7) DEFAULT '#6366f1',
     secondary_color VARCHAR(7) DEFAULT '#8b5cf6',
+    background_color VARCHAR(7) DEFAULT '#ffffff',
     template_id INTEGER DEFAULT 1 CHECK (template_id IN (1, 2)),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

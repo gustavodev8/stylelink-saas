@@ -6,7 +6,7 @@ async function runMigrations() {
   console.log('🔄 Verificando migrações do banco de dados...');
 
   try {
-    // Ler arquivo de migração
+    // Ler arquivos de migração
     const migration1 = fs.readFileSync(
       path.join(__dirname, 'migrations', '001_schema_completo.sql'),
       'utf8'
@@ -14,6 +14,11 @@ async function runMigrations() {
 
     const migration2 = fs.readFileSync(
       path.join(__dirname, 'migrations', '002_add_email_verification.sql'),
+      'utf8'
+    );
+
+    const migration3 = fs.readFileSync(
+      path.join(__dirname, 'migrations', '003_add_background_color.sql'),
       'utf8'
     );
 
@@ -40,8 +45,13 @@ async function runMigrations() {
 
       console.log('🎉 Banco de dados configurado com sucesso!');
     } else {
-      console.log('✅ Tabelas já existem, pulando migrações.');
+      console.log('✅ Tabelas já existem.');
     }
+
+    // Sempre executar migration 3 (usa IF NOT EXISTS)
+    console.log('🔄 Verificando campo background_color...');
+    await pool.query(migration3);
+    console.log('✅ Campo background_color verificado!');
 
     return true;
   } catch (error) {

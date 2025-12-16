@@ -119,7 +119,10 @@ function customizeApp() {
     },
 
     getPreviewHTML() {
-      const gradient = `linear-gradient(135deg, ${this.settings.primaryColor}, ${this.settings.secondaryColor})`;
+      // Usar backgroundColor se definido, caso contrário usar gradiente
+      const background = this.settings.backgroundColor
+        ? this.settings.backgroundColor
+        : `linear-gradient(135deg, ${this.settings.primaryColor}, ${this.settings.secondaryColor})`;
       const logoUrl = this.settings.logoUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(this.settings.storeName)}`;
 
       return `
@@ -139,7 +142,7 @@ function customizeApp() {
 
     body {
       font-family: 'Inter', sans-serif;
-      background: ${gradient};
+      background: ${background};
       min-height: 100vh;
       padding: 20px;
     }
