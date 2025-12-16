@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/products.css">
   <link rel="stylesheet" href="../css/sidebar.css">
+  <link rel="stylesheet" href="../css/customize-simple.css">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script defer src="../js/sidebar.js"></script>
 </head>
@@ -138,168 +139,155 @@
         </div>
       </header>
 
-      <!-- Customization Grid -->
-      <div class="customize-grid">
-        <!-- Left: Settings -->
-        <div class="customize-panel">
+      <!-- Content -->
+      <div class="page-content">
+        <div class="settings-grid">
 
-          <!-- Cores -->
-          <div class="settings-section">
-            <h3 class="section-title">🎨 Cores do Tema</h3>
-
-            <div class="form-group">
-              <label class="form-label">Cor Primária</label>
-              <div class="color-input-group">
-                <input
-                  type="color"
-                  x-model="settings.primaryColor"
-                  class="color-picker">
-                <input
-                  type="text"
-                  x-model="settings.primaryColor"
-                  class="form-input"
-                  placeholder="#6366f1">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Cor Secundária</label>
-              <div class="color-input-group">
-                <input
-                  type="color"
-                  x-model="settings.secondaryColor"
-                  class="color-picker">
-                <input
-                  type="text"
-                  x-model="settings.secondaryColor"
-                  class="form-input"
-                  placeholder="#8b5cf6">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Cor de Fundo</label>
-              <div class="color-input-group">
-                <input
-                  type="color"
-                  x-model="settings.backgroundColor"
-                  class="color-picker">
-                <input
-                  type="text"
-                  x-model="settings.backgroundColor"
-                  class="form-input"
-                  placeholder="#ffffff">
-              </div>
-            </div>
-
-            <div class="preset-colors">
-              <p class="preset-label">Paletas Predefinidas:</p>
-              <div class="preset-grid">
-                <button @click="applyPreset('purple')" class="preset-btn" title="Roxo">
-                  <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6)"></div>
-                </button>
-                <button @click="applyPreset('blue')" class="preset-btn" title="Azul">
-                  <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8)"></div>
-                </button>
-                <button @click="applyPreset('pink')" class="preset-btn" title="Rosa">
-                  <div style="background: linear-gradient(135deg, #ec4899, #be185d)"></div>
-                </button>
-                <button @click="applyPreset('green')" class="preset-btn" title="Verde">
-                  <div style="background: linear-gradient(135deg, #10b981, #059669)"></div>
-                </button>
-                <button @click="applyPreset('orange')" class="preset-btn" title="Laranja">
-                  <div style="background: linear-gradient(135deg, #f59e0b, #d97706)"></div>
-                </button>
-                <button @click="applyPreset('dark')" class="preset-btn" title="Escuro">
-                  <div style="background: linear-gradient(135deg, #1f2937, #111827)"></div>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Informações -->
-          <div class="settings-section">
-            <h3 class="section-title">ℹ️ Informações da Loja</h3>
-
-            <div class="form-group">
-              <label class="form-label">Nome da Loja</label>
-              <input
-                type="text"
-                x-model="settings.storeName"
-                class="form-input"
-                placeholder="Minha Loja">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Biografia / Descrição</label>
-              <textarea
-                x-model="settings.bio"
-                class="form-input"
-                rows="3"
-                placeholder="Conte um pouco sobre sua loja..."></textarea>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">WhatsApp (com DDD)</label>
-              <input
-                type="tel"
-                x-model="settings.whatsapp"
-                class="form-input"
-                placeholder="11999999999">
-            </div>
-          </div>
-
-          <!-- Logo/Avatar -->
-          <div class="settings-section">
-            <h3 class="section-title">🖼️ Logo / Avatar</h3>
-
-            <div class="avatar-upload">
-              <div class="avatar-preview">
-                <img
-                  :src="settings.logoUrl || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + settings.storeName"
-                  alt="Logo">
+          <!-- Card: Cores -->
+          <div class="settings-card">
+            <div class="card-header">
+              <div class="card-icon primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <line x1="12" y1="2" x2="12" y2="8"></line>
+                </svg>
               </div>
               <div>
-                <label class="btn btn-secondary btn-sm">
-                  <input type="file" accept="image/*" @change="handleLogoUpload" hidden>
-                  Trocar Logo
-                </label>
-                <p class="help-text">PNG, JPG até 2MB</p>
+                <h3 class="card-title">Cores da Loja</h3>
+                <p class="card-description">Escolha a paleta de cores da sua marca</p>
+              </div>
+            </div>
+
+            <div class="card-content">
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: 14px;">Selecione uma das paletas abaixo para personalizar sua loja:</p>
+
+              <div class="color-presets">
+                <button @click="applyPreset('purple')" class="color-preset-btn" :class="{'active': settings.primaryColor === '#6366f1'}">
+                  <div class="preset-preview">
+                    <span style="background: #6366f1"></span>
+                    <span style="background: #8b5cf6"></span>
+                  </div>
+                  <span class="preset-name">Roxo Moderno</span>
+                </button>
+
+                <button @click="applyPreset('blue')" class="color-preset-btn" :class="{'active': settings.primaryColor === '#3b82f6'}">
+                  <div class="preset-preview">
+                    <span style="background: #3b82f6"></span>
+                    <span style="background: #1d4ed8"></span>
+                  </div>
+                  <span class="preset-name">Azul Profissional</span>
+                </button>
+
+                <button @click="applyPreset('pink')" class="color-preset-btn" :class="{'active': settings.primaryColor === '#ec4899'}">
+                  <div class="preset-preview">
+                    <span style="background: #ec4899"></span>
+                    <span style="background: #be185d"></span>
+                  </div>
+                  <span class="preset-name">Rosa Vibrante</span>
+                </button>
+
+                <button @click="applyPreset('green')" class="color-preset-btn" :class="{'active': settings.primaryColor === '#10b981'}">
+                  <div class="preset-preview">
+                    <span style="background: #10b981"></span>
+                    <span style="background: #059669"></span>
+                  </div>
+                  <span class="preset-name">Verde Sustentável</span>
+                </button>
+
+                <button @click="applyPreset('orange')" class="color-preset-btn" :class="{'active': settings.primaryColor === '#f59e0b'}">
+                  <div class="preset-preview">
+                    <span style="background: #f59e0b"></span>
+                    <span style="background: #d97706"></span>
+                  </div>
+                  <span class="preset-name">Laranja Energético</span>
+                </button>
+
+                <button @click="applyPreset('dark')" class="color-preset-btn" :class="{'active': settings.primaryColor === '#1f2937'}">
+                  <div class="preset-preview">
+                    <span style="background: #1f2937"></span>
+                    <span style="background: #111827"></span>
+                  </div>
+                  <span class="preset-name">Escuro Elegante</span>
+                </button>
               </div>
             </div>
           </div>
 
-        </div>
+          <!-- Card: Informações -->
+          <div class="settings-card">
+            <div class="card-header">
+              <div class="card-icon success">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Informações da Loja</h3>
+                <p class="card-description">Como sua loja aparece para os clientes</p>
+              </div>
+            </div>
 
-        <!-- Right: Preview -->
-        <div class="preview-panel">
-          <div class="preview-header">
-            <h3>Prévia ao Vivo</h3>
-            <div class="preview-devices">
-              <button
-                @click="previewDevice = 'mobile'"
-                :class="{ 'active': previewDevice === 'mobile' }"
-                class="device-btn">
-                📱 Mobile
-              </button>
-              <button
-                @click="previewDevice = 'desktop'"
-                :class="{ 'active': previewDevice === 'desktop' }"
-                class="device-btn">
-                💻 Desktop
-              </button>
+            <div class="card-content">
+              <div class="form-group">
+                <label class="form-label">Nome da Loja</label>
+                <input type="text" x-model="settings.storeName" class="form-input" placeholder="Ex: Minha Boutique" maxlength="50">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Descrição Curta</label>
+                <textarea x-model="settings.bio" class="form-input" rows="3" placeholder="Conte um pouco sobre sua loja..." maxlength="150"></textarea>
+                <small style="color: var(--text-tertiary); font-size: 12px;" x-text="`${settings.bio?.length || 0}/150 caracteres`"></small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">WhatsApp</label>
+                <input type="tel" x-model="settings.whatsapp" class="form-input" placeholder="5511999999999">
+                <small style="color: var(--text-tertiary); font-size: 12px;">Código do país + DDD + número (ex: 5511999999999)</small>
+              </div>
             </div>
           </div>
 
-          <div class="preview-container" :class="'preview-' + previewDevice">
-            <div class="preview-iframe-wrapper">
-              <iframe
-                id="previewFrame"
-                :srcdoc="getPreviewHTML()"
-                frameborder="0">
-              </iframe>
+          <!-- Card: Logo -->
+          <div class="settings-card">
+            <div class="card-header">
+              <div class="card-icon warning">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Logo da Loja</h3>
+                <p class="card-description">Imagem que representa sua marca</p>
+              </div>
+            </div>
+
+            <div class="card-content">
+              <div class="logo-upload-wrapper">
+                <div class="logo-preview-circle">
+                  <img :src="settings.logoUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(settings.storeName)}`" alt="Logo">
+                </div>
+                <div class="logo-upload-actions">
+                  <label class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span>Escolher Imagem</span>
+                    <input type="file" accept="image/*" @change="handleLogoUpload" hidden>
+                  </label>
+                  <p style="color: var(--text-tertiary); font-size: 13px; margin-top: var(--space-2);">
+                    PNG ou JPG • Máximo 2MB • Recomendado 400x400px
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </main>
