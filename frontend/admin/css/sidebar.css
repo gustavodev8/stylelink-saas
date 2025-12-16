@@ -1,0 +1,331 @@
+/* =====================================================
+   STYLELINK PRO - SIDEBAR GLOBAL
+   Sistema de sidebar responsivo para todas as páginas
+   ===================================================== */
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.mobile-menu-toggle:hover .hamburger-icon span {
+  background: white;
+}
+
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all var(--transition-base);
+}
+
+/* Hamburger Animation */
+.mobile-menu-toggle.active .hamburger-icon span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-icon span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Sidebar Overlay (mobile) */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+}
+
+/* Sidebar Base Styles */
+.sidebar {
+  width: var(--sidebar-width, 260px);
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
+  transition: transform var(--transition-slow);
+}
+
+/* Sidebar Header */
+.sidebar-header,
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--border-light);
+  min-height: 72px;
+}
+
+.brand-title,
+.brand-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.brand-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  color: white;
+  border-radius: var(--radius-full, 9999px);
+  margin-left: 4px;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+  flex: 1;
+  padding: var(--space-4);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Navigation Items */
+.nav-item,
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  position: relative;
+  margin-bottom: var(--space-1);
+}
+
+.nav-item:hover,
+.nav-link:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.nav-item.active,
+.nav-link.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-icon,
+.nav-item svg,
+.nav-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  padding: var(--space-4);
+  border-top: 1px solid var(--border-light);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3);
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--danger);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.logout-btn:hover {
+  background: var(--danger-light);
+  border-color: var(--danger);
+}
+
+.logout-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Main Content Adjustment */
+.main-content,
+.dashboard-container {
+  margin-left: var(--sidebar-width, 260px);
+  min-height: 100vh;
+  transition: margin-left var(--transition-slow);
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .sidebar-overlay {
+    display: block;
+  }
+
+  .main-content,
+  .dashboard-container {
+    margin-left: 0;
+  }
+
+  /* Adicionar padding no topo para não ficar atrás do menu hamburger */
+  .page-header {
+    padding-top: calc(var(--space-6) + 44px);
+  }
+}
+
+/* Mobile (768px and below) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 280px; /* Um pouco mais largo em mobile */
+  }
+
+  .sidebar-header,
+  .sidebar-brand {
+    padding: var(--space-5);
+  }
+
+  .nav-item,
+  .nav-link {
+    padding: var(--space-4);
+    font-size: 0.9375rem;
+  }
+
+  .nav-icon,
+  .nav-item svg,
+  .nav-link svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .mobile-menu-toggle {
+    top: 12px;
+    left: 12px;
+  }
+}
+
+/* =====================================================
+   UTILITIES
+   ===================================================== */
+
+/* Prevent body scroll when sidebar is open on mobile */
+body.sidebar-open {
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  body.sidebar-open {
+    overflow: hidden;
+  }
+}
+
+/* Hide scrollbar on sidebar when not needed */
+.sidebar-nav:not(:hover) {
+  scrollbar-width: none;
+}
+
+.sidebar-nav:not(:hover)::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-nav:hover {
+  scrollbar-width: thin;
+}
